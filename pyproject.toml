@@ -1,0 +1,18 @@
+[project]
+name = "axoplay"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "deepspeed>=0.16.9",
+    "flash-attn>=2.7.4.post1",
+    "ninja>=1.11.1.4",
+    "packaging>=25.0",
+    "setuptools>=80.8.0",
+    "wheel>=0.45.1",
+]
+
+
+[tool.uv]
+no-build-isolation-package = ['flash-attn', 'deepspeed']
