@@ -6,8 +6,10 @@ chat_template: llama3
 datasets:
   - path: winglian/pirate-ultrachat-10k
     type: chat_template
-    message_field_role: role
-    message_field_content: content
+    message_property_mappings:
+      role: role
+      content: content
+    roles_to_train: ["assistant"]
 dataset_prepared_path: last_run_prepared
 val_set_size: 0.005
 output_dir: ./outputs/lora-out
@@ -27,10 +29,11 @@ lora_modules_to_save:
   - lm_head
 peft_use_dora: true
 
-gradient_accumulation_steps: 2
+gradient_accumulation_steps: 4
 micro_batch_size: 2
 num_epochs: 2
 optimizer: adamw_bnb_8bit
+lr_scheduler: cosine
 learning_rate: 0.0002
 
 train_on_inputs: false
@@ -45,6 +48,7 @@ warmup_ration: 0.1
 evals_per_epoch: 1
 saves_per_epoch: 1
 weight_decay: 0.0
+deepspeed: deepspeed_configs/zero2.json
 special_tokens:
-   pad_token: <|end_of_text|>
+  pad_token: "<|finetune_right_pad_id|>"
 save_safetensors: true
